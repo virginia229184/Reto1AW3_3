@@ -147,3 +147,4 @@ INSERT INTO sugerencia (id, fecha, descripcion, DNI) VALUES
 
 
 --hola--
+--ADIOS--
