@@ -1,3 +1,4 @@
+import BBDD.personaConnect;
 import Controlador.Coordinador;
 import Modelos.Persona;
 
@@ -9,6 +10,9 @@ public class mainYelmo {
 		Persona person = new Persona();
 		
 		Coordinador coord = new Coordinador();
+		
+		personaConnect personconnect = new personaConnect();
+		
 
 	}
 

@@ -9,19 +9,19 @@ public class Persona {
     String rol;
     String email;
     String telefono;
-    String contraseña;
+    String contrasena;
     
    
 
-    public Persona(String dNI, String nombre, String apellido, String rol, String email, String telefono,
-            String contraseña) {
-        Dni = dNI;
+    public Persona(String Dni, String nombre, String apellido, String rol, String email, String telefono,
+            String contrasena) {
+        this.Dni = Dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.rol = rol;
         this.email = email;
         this.telefono = telefono;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
     }
 
     public Persona() {
@@ -32,8 +32,8 @@ public class Persona {
         return Dni;
     }
 
-    public void setDNI(String dNI) {
-        Dni = dNI;
+    public void setDNI(String Dni) {
+        Dni = Dni;
     }
 
     public String getNombre() {
@@ -76,18 +76,18 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @Override
     public String toString() {
         return "Persona [DNI=" + Dni + ", nombre=" + nombre + ", apellido=" + apellido + ", rol=" + rol + ", email="
-                + email + ", telefono=" + telefono + ", contraseña=" + contraseña + "]";
+                + email + ", telefono=" + telefono + ", contraseña=" + contrasena + "]";
     }
 
 }
