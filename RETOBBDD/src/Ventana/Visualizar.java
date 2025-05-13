@@ -16,8 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import Controlador.Coordinador; 
-
+import Controlador.Coordinador;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent; 
 public class Visualizar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class Visualizar extends JFrame {
 	private JTable table;
 	public DefaultTableModel TableModel;
 	public JComboBox comboCliente;
-	private JTextField textFieldDatos;
+	public JTextField textFieldBuscador;
 	
 
 	/**
@@ -60,18 +61,23 @@ public class Visualizar extends JFrame {
 		scrollPane.setBounds(10, 10, 814, 173);
 		contentPane.add(scrollPane);
 		
-		TableModel = new DefaultTableModel(new Object[] {"DNI", "nombre", "apellido", "telefono", "email", "rol", "Contraseña"}, 0);
+		TableModel = new DefaultTableModel(new Object[] {"DNI", "nombre", "apellido", "rol", "email", "telefono", "contrasena"}, 0);
 		
 		table = new JTable(TableModel);
 		scrollPane.setViewportView(table);
-		/*Controlador.Coordinador.getVisualizarPersonas(TableModel);*/
+		
+		
 		
 		JComboBox comboCliente = new JComboBox<Object>();
+		comboCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coordinador.getVisualizarPersonas(TableModel, comboCliente);
+			}
+		});
 		comboCliente.setBounds(366, 210, 105, 29);
 		contentPane.add(comboCliente);
 		Coordinador.VisualizarPersonasComboBox(comboCliente);
 		
-	
 		
 		JLabel lblDNI = new JLabel("Datos:");
 		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -93,9 +99,15 @@ public class Visualizar extends JFrame {
 		BotonCopiaSeg.setBounds(639, 273, 185, 55);
 		contentPane.add(BotonCopiaSeg);
 		
-		textFieldDatos = new JTextField();
-		textFieldDatos.setBounds(317, 278, 216, 19);
-		contentPane.add(textFieldDatos);
-		textFieldDatos.setColumns(10);
+		textFieldBuscador = new JTextField();
+		textFieldBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				 
+			}
+		});
+		textFieldBuscador.setBounds(317, 278, 216, 19);
+		contentPane.add(textFieldBuscador);
+		textFieldBuscador.setColumns(10);
 	}
 }
