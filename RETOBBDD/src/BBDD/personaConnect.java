@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import Modelos.Persona;
 
-public class personaConnect {
+/*public class personaConnect {
 
 	Connection connect() {
 		
@@ -149,4 +149,4 @@ public class personaConnect {
 
 	
 	
-}
+}*/

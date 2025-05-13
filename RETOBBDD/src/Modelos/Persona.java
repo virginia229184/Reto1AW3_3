@@ -1,6 +1,6 @@
 package Modelos;
 
-public class Persona {
+public abstract class Persona {
     
 
     String Dni;
@@ -33,7 +33,7 @@ public class Persona {
     }
 
     public void setDNI(String Dni) {
-        Dni = Dni;
+      this.Dni = Dni;
     }
 
     public String getNombre() {

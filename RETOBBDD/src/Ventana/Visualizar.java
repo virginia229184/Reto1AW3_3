@@ -71,12 +71,12 @@ public class Visualizar extends JFrame {
 		JComboBox comboCliente = new JComboBox<Object>();
 		comboCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Coordinador.getVisualizarPersonas(TableModel, comboCliente);
+				Coordinador.getVisualizarEmpleado(TableModel, comboCliente);
 			}
 		});
 		comboCliente.setBounds(366, 210, 105, 29);
 		contentPane.add(comboCliente);
-		Coordinador.VisualizarPersonasComboBox(comboCliente);
+		Coordinador.VisualizarEmpleadoComboBox(comboCliente);
 		
 		
 		JLabel lblDNI = new JLabel("Datos:");
