@@ -50,7 +50,17 @@ public class Coordinador implements ActionListener {
 	public Coordinador() {
 
 	}
-
+	
+	
+	public static void VisualizarEmpleadoModi(DefaultTableModel Tablemodel) {
+		empleadoConnect empleCon = new empleadoConnect();
+		
+		
+		
+		
+	}
+	
+	
 	public static void GuardarEmpleado(JTextField textFieldDatos) {
 
 		empleadoConnect empleCon = new empleadoConnect();
@@ -126,7 +136,7 @@ public class Coordinador implements ActionListener {
 		
 		try {
 			
-			
+		
 			
 			
 		

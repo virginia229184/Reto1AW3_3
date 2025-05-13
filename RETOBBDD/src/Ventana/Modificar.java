@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import Controlador.Coordinador;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -13,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class Modificar extends JFrame {
 
@@ -26,7 +32,9 @@ public class Modificar extends JFrame {
 	private JTextField textFieldTelefono;
 	private JTextField textFieldContrasena;
 	public JButton ButtonModificar;
-
+	public DefaultTableModel TableModel;
+	private JTable tabla;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +56,7 @@ public class Modificar extends JFrame {
 	 */
 	public Modificar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 666, 451);
+		setBounds(100, 100, 882, 579);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -131,7 +139,7 @@ public class Modificar extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		buttonSalir.setBounds(534, 361, 108, 43);
+		buttonSalir.setBounds(760, 499, 108, 43);
 		contentPane.add(buttonSalir);
 		
 		JButton buttonModificar = new JButton("Modificar");
@@ -140,8 +148,23 @@ public class Modificar extends JFrame {
 			}
 		});
 		buttonModificar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		buttonModificar.setBounds(534, 299, 108, 43);
+		buttonModificar.setBounds(641, 499, 108, 43);
 		contentPane.add(buttonModificar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(277, 10, 591, 480);
+		contentPane.add(scrollPane);
+		
+		
+		TableModel = new DefaultTableModel(new Object[] {"DNI","nombre", "apellido", "rol", "email", "telefono", "contrasena"}, 0);
+		
+		tabla = new JTable(TableModel);
+		scrollPane.setViewportView(tabla);
+		Coordinador.getVisualizarEmpleado(TableModel, null);
+		
+		
+		
+		
 		buttonSalir.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
