@@ -1,6 +1,8 @@
 package Modelos;
 
-public abstract class Persona {
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable{
     
 
     String Dni;

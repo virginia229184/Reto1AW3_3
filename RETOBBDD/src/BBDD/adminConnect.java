@@ -41,5 +41,36 @@ public class adminConnect {
 		
 	}
 	
+	public ArrayList<Administrador> getAdmin() throws SQLException {
+		Connection con = connect();
+		Statement st = con.createStatement();
+		String consulta = "SELECT * FROM persona";
+		ResultSet resultset = (ResultSet) st.executeQuery(consulta);
+		ArrayList<Administrador> adminList = new ArrayList<Administrador>();
+		
+		try {
+			while(resultset.next()) {
+				Administrador admin = new Administrador();
+					admin.setDNI(resultset.getString("DNI"));
+					admin.setNombre(resultset.getString("nombre"));
+					admin.setApellido(resultset.getString("apellido"));
+					admin.setRol(resultset.getString("rol"));
+					admin.setEmail(resultset.getString("email"));
+					admin.setTelefono(resultset.getString("telefono"));
+					admin.setContrasena(resultset.getString("contrasena"));
+				adminList.add(admin);
+				
+			}
+			
+		}catch(SQLException e) {
+			System.err.println("Error en getEmpleado");
+			
+		}
+		con.close();
+		
+		return adminList;
+		
+	}
+	
 
 }

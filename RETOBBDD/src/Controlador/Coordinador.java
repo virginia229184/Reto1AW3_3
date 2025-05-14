@@ -4,11 +4,16 @@ import Ventana.Visualizar;
 import Modelos.Administrador;
 import Modelos.Empleado;
 import Modelos.Persona;
+import BBDD.adminConnect;
 import BBDD.empleadoConnect;
 /*import BBDD.personaConnect;*/
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +24,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -80,21 +87,10 @@ public class Coordinador implements ActionListener {
 
 	public static void VisualizarEmpleadoComboBox(JComboBox<String> comboCliente) {
 
-		empleadoConnect empleCon = new empleadoConnect();
-
-		try {
-
-			comboCliente.addItem("Todos");
-			for (int i = 0; i < empleCon.getEmpleadoCombo().size(); i++) {
-				comboCliente.addItem(empleCon.getEmpleadoCombo().get(i).getNombre());
-			}
-
-			System.out.println("Personas visualizadas exitosamente");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		
+		comboCliente.addItem("Nombre");
+		comboCliente.addItem("DNI");
+		
 	}
 
 	public static void getVisualizarEmpleado(DefaultTableModel TableModel, JComboBox comboCliente) {
@@ -104,11 +100,10 @@ public class Coordinador implements ActionListener {
 		try {
 			TableModel.setRowCount(0);
 
-			if (comboCliente.getSelectedItem().toString().equalsIgnoreCase("Todos")) {
+			if (comboCliente.getSelectedItem().toString().equalsIgnoreCase("DNI")) {
 				ArrayList<Empleado> empleadoList = empleCon.getEmpleado();
 				for (Empleado empleado : empleadoList) {
-					TableModel.addRow(new Object[] { empleado.getDNI(), empleado.getNombre(), empleado.getApellido(),
-							empleado.getRol(),empleado.getEmail(),empleado.getTelefono(), empleado.getContrasena() });
+					TableModel.addRow(new Object[] { empleado.getDNI()});
 
 					System.out.println("Personas introducidas correctamente");
 				}
@@ -116,11 +111,14 @@ public class Coordinador implements ActionListener {
 			}
 
 			else {
-				ArrayList<Empleado> empleadoLists = empleCon.getEmpleadoNombre(comboCliente);
-				for (Empleado empleado : empleadoLists) {
-					TableModel.addRow(new Object[] { empleado.getDNI(), empleado.getNombre(), empleado.getApellido(),
-							empleado.getRol(), empleado.getEmail(), empleado.getTelefono(), empleado.getContrasena() });
+				if (comboCliente.getSelectedItem().toString().equalsIgnoreCase("Nombre")) {
+					ArrayList<Empleado> empleadoLists = empleCon.getEmpleado();
+					for (Empleado empleado : empleadoLists) {
+						TableModel.addRow(new Object[] { empleado.getDNI(), empleado.getNombre(), empleado.getApellido(),
+								empleado.getRol(), empleado.getEmail(), empleado.getTelefono(), empleado.getContrasena() });
+					}	
 				}
+				
 
 			}
 
@@ -191,7 +189,58 @@ public class Coordinador implements ActionListener {
         }
         return "";
     }
+    
+    
+    public static void buscarDatos(DefaultTableModel tablemodel,JTable tablexml,JTextField textFieldBuscador) {
+        DefaultTableModel ob=(DefaultTableModel) tablexml.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
+        tablexml.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(textFieldBuscador.getText()));
+    }
 	
+    
+    
+    public static void CargarFicherosBinarios(JButton BotonCopiaSeg) throws SQLException {
+    	File archivo = new File("escritura.dat");
+    	adminConnect admConnect = new adminConnect();
+    	empleadoConnect empConnect = new empleadoConnect();
+        ArrayList<Empleado> empleadoList = empConnect.getEmpleado();
+        ArrayList<Administrador> adminList = admConnect.getAdmin();
+        
+        try {
+            // Para poder escribir utilizaremos un FileOutputStream pasandole
+            // como referencia el archivo de tipo File.
+            FileOutputStream fos = new FileOutputStream(archivo);
+             
+            // Y crearemos también una instancia del tipo ObjectOutputStream
+            // al que le pasaremos por parámetro
+            // el objeto de tipo FileOutputStream
+            ObjectOutputStream escribir = new ObjectOutputStream(fos);
+             
+            // Escribimos los objetos en el archivo.
+            for(int i = 0; i < adminList.size();i++) {
+      
+            escribir.writeObject(adminList.get(i));
+            }
+            
+            for(int i = 0; i < empleadoList.size(); i++) {
+            	escribir.writeObject(empleadoList.get(i).toString());
+            }
+            // Cerramos los objetos para no consumir recursos.
+            escribir.close();
+            fos.close();
+             
+            System.out.println("se han guardado con exito;");
+        } catch (Exception e) {
+            System.out.println("Error al escribir en el archivo. "
+                    + e.getMessage());   
+        }
+    }
+
+ 
+    
+    	
+    
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
