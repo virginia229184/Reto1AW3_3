@@ -1,6 +1,7 @@
 package Controlador;
 
 import Ventana.Visualizar;
+import logs.FormatoHTML;
 import Modelos.Administrador;
 import Modelos.Empleado;
 import Modelos.Persona;
@@ -12,16 +13,23 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -34,6 +42,33 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Coordinador implements ActionListener {
+	
+	
+	private static final Logger sesion = Logger.getLogger("sesionLogger");
+	private static final Logger errores = Logger.getLogger("erroresLogger");
+	private static final LogManager logManager = LogManager.getLogManager();
+	static {
+		try {
+			LogManager.getLogManager().reset();
+			//fichero para cada sesion
+			String nombreSesion = "sesion_" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".html";
+	        FileHandler fileHandler = new FileHandler(nombreSesion, true);
+			fileHandler.setFormatter(new FormatoHTML());
+			sesion.addHandler(fileHandler);
+			sesion.setLevel(Level.ALL);
+
+//			fichero global para errores
+			FileHandler fileHandler1 = new FileHandler("errores.html", true);
+			fileHandler1.setFormatter(new FormatoHTML());
+			errores.addHandler(fileHandler1);
+			errores.setLevel(Level.ALL);
+
+		} catch (IOException e) {
+			System.err.println("Error al configurar los logs");
+		}
+	}
+	
+	
 
 	Persona miPersona;
 	Visualizar miVisualizador;
@@ -74,6 +109,98 @@ public class Coordinador implements ActionListener {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+	}
+	
+	public static void IniciarSesion(JTextField textFieldDNI, JTextField textFieldContrasena) {
+
+		empleadoConnect empleCon = new empleadoConnect();
+		
+		adminConnect adminCon = new adminConnect();
+		
+		String dni = textFieldDNI.getText();
+		String contrasena = textFieldContrasena.getText();
+		boolean iniciarSesion = false;
+
+		try {
+			for (int i = 0; i < empleCon.getEmpleado().size(); i++) {
+				if (dni.equalsIgnoreCase(empleCon.getEmpleado().get(i).getDNI())
+						&& contrasena.equals(empleCon.getEmpleado().get(i).getContrasena())
+						&& empleCon.getEmpleado().get(i).getRol().equalsIgnoreCase("empleado")) {
+					Ventana.XMLForm frame = new Ventana.XMLForm();
+					frame.setVisible(true);
+					JOptionPane.showMessageDialog(null, "El empleado ha iniciado sesión con éxito");
+					System.out.println("esto es el empleado");
+					iniciarSesion = true;
+					sesion.log(Level.INFO, "Inicio de sesión correcto. DNI: " + dni);
+
+
+				} else {
+					if (dni.equalsIgnoreCase(adminCon.getAdmin().get(i).getDNI())
+							&& contrasena.equals(adminCon.getAdmin().get(i).getContrasena())
+							&& adminCon.getAdmin().get(i).getRol().equalsIgnoreCase("administrador")) {
+						
+						Ventana.MenuAdmin frame = new Ventana.MenuAdmin();
+						frame.setVisible(true);
+						JOptionPane.showMessageDialog(null, "El administrador ha iniciado sesión con éxito");
+						System.out.println("esto es el administrador");
+						iniciarSesion = true;
+						sesion.log(Level.INFO, "Inicio de sesión correcto");
+						sesion.log(Level.INFO, "Inicio de sesión correcto. DNI: " + dni);
+
+
+					}
+
+				}
+
+			}
+			if (iniciarSesion == false) {
+				JOptionPane.showMessageDialog(null, "Has introducido mal un dato(DNI o contraseña)");
+				errores.log(Level.WARNING, "Error en IniciarSesion. DNI: "+ dni);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error en IniciarSesion");
+			JOptionPane.showMessageDialog(null, "Has introducido mal un dato(DNI o contraseña)");
+			errores.log(Level.SEVERE, "Error en IniciarSesion");
+
+		}
+
+	}
+	
+	public static void EliminarEmpleado(JTextField textFieldDNI) {
+
+		empleadoConnect empleCon = new empleadoConnect();
+
+		String dni = textFieldDNI.getText();
+		boolean borrado = false;
+
+		try {
+			for (int i = 0; i < empleCon.getEmpleado().size(); i++) {
+				if (dni.equalsIgnoreCase(empleCon.getEmpleado().get(i).getDNI())) {
+					empleCon.borrarEmpleado(dni);
+					borrado = true;
+					JOptionPane.showMessageDialog(null, "Has eliminado con éxito los datos");
+					sesion.log(Level.INFO, "Persona eliminada con éxito");
+
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error en eliminarPersona");
+			JOptionPane.showMessageDialog(null, "No se han eliminado con éxito los datos");
+			errores.log(Level.WARNING, "Error al eliminar persona");
+
+		}
+		if (borrado == false) {
+			System.out.println("El dni no existe");
+			JOptionPane.showMessageDialog(null, "No se han podido eliminar los datos");
+			errores.log(Level.WARNING, "Error al eliminar persona. DNI no encontrado");
+
 		}
 
 	}
@@ -122,6 +249,81 @@ public class Coordinador implements ActionListener {
 
 	}
 	
+	public static void modificarEmpleado(JTextField textFieldDNI, JTextField textFieldNombre,
+			JTextField textFieldApellido, JTextField textFieldRol, JTextField textFieldEmail,
+			JTextField textFieldTelefono, JTextField textFieldContrasena) {
+		
+		empleadoConnect empleCon = new empleadoConnect();
+		boolean resultado = false;
+		String dni = textFieldDNI.getText();
+		try {
+			for (int i = 0; i < empleCon.getEmpleado().size(); i++) {
+				if (dni.equalsIgnoreCase(empleCon.getEmpleado().get(i).getDNI())) {
+					String nombre = textFieldNombre.getText();
+					String apellido = textFieldApellido.getText();
+					String rol = textFieldRol.getText();
+					String email = textFieldEmail.getText();
+					String telefono = textFieldTelefono.getText();
+					String contrasena = textFieldContrasena.getText();
+
+					Empleado empleado = new Empleado();
+
+					empleCon.modificarEmpleado(empleado);
+					resultado = true;
+
+					JOptionPane.showMessageDialog(null, "Has modificado con éxito los datos");
+					sesion.log(Level.INFO, "Persona modificada con éxito");
+
+				}
+			}
+		} catch (SQLException e5) {
+			e5.printStackTrace();
+			System.out.println("Error en modificarPersona");
+			JOptionPane.showMessageDialog(null, "No se ha podido modificar los datos");
+			errores.log(Level.SEVERE, "Error al modificar persona");
+
+		}
+
+		if (resultado == false) {
+			System.out.println("El dni no existe");
+			JOptionPane.showMessageDialog(null, "No se ha podido modificar los datos");
+			errores.log(Level.SEVERE, "Error al modificar persona");
+
+		}
+
+	}
+	
+	public static void GuardarEmpleado(JTextField textFieldDNI, JTextField textFieldNombre, JTextField textFieldApellido,
+			JTextField textFieldRol, JTextField textFieldMail, JTextField textFieldTelefono,
+			JTextField textFieldContrasena) throws IOException {
+
+		empleadoConnect empleCon = new empleadoConnect();
+
+		String dni = textFieldDNI.getText();
+		String nombre = textFieldNombre.getText();
+		String apellido = textFieldApellido.getText();
+		String rol = textFieldRol.getText();
+		String mail = textFieldMail.getText();
+		String telefono = textFieldTelefono.getText();
+		String contrasena = textFieldContrasena.getText();
+
+		Empleado empleado = new Empleado();
+
+		try {
+			empleCon.registrarEmpleado(empleado);
+			JOptionPane.showMessageDialog(null, "Has insertado con éxito los datos");
+			sesion.log(Level.INFO, "Persona registrada con éxito. DNI: " + dni);
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error en guardarPersona");
+			JOptionPane.showMessageDialog(null, "No se han podido insertar los datos");
+			errores.log(Level.SEVERE, "Error al registrar persona");
+
+		}
+
+	}
 	
 	
 	public static void tablemodelxml(JTable tablexml) {
@@ -216,9 +418,7 @@ public class Coordinador implements ActionListener {
         }
     }
 
- 
-    
-    	
+   	
     
 
 	@Override
