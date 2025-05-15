@@ -13,6 +13,12 @@ import java.sql.DriverManager;
 
 import Modelos.Empleado;
 
+/**
+ * Conexion a la base de Empleados
+ * 
+ * @author 1AW3-17 JON OTAZUA
+ * @version 05.15.2025
+ */
 
 public class empleadoConnect {
 	

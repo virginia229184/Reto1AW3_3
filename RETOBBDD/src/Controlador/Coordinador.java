@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import Ventana.Modificar;
+
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,17 +40,17 @@ public class Coordinador implements ActionListener {
 	/*personaConnect miPersonconnect;*/
 	Empleado miEmpleado;
 	Administrador miAdministrador;
-	Modificar miModificador;
+	
 	empleadoConnect miEmpleadoConnect;
 
 	public Coordinador(Persona paramPersona, Visualizar paramVisualizar,
-			Empleado empleadoParam, Administrador adminParam, Modificar paramModificar, empleadoConnect paramEmpleadoConnect) {
+			Empleado empleadoParam, Administrador adminParam, empleadoConnect paramEmpleadoConnect) {
 		this.miPersona = paramPersona;
 		this.miVisualizador = paramVisualizar;
 		/*this.miPersonconnect = paramPersonconnect;*/
 		this.miEmpleado = empleadoParam;
 		this.miAdministrador = adminParam;
-		this.miModificador = paramModificar;
+		
 		this.miEmpleadoConnect = paramEmpleadoConnect;
 	}
 
@@ -59,13 +59,6 @@ public class Coordinador implements ActionListener {
 	}
 	
 	
-	public static void VisualizarEmpleadoModi(DefaultTableModel Tablemodel) {
-		empleadoConnect empleCon = new empleadoConnect();
-		
-		
-		
-		
-	}
 	
 	
 	public static void GuardarEmpleado(JTextField textFieldDatos) {
@@ -129,21 +122,7 @@ public class Coordinador implements ActionListener {
 
 	}
 	
-	public void getModificarPersona(JButton buttonModificar) {
-		empleadoConnect empleCon = new empleadoConnect();
-		
-		try {
-			
-		
-			
-			
-		
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-	}
+	
 	
 	public static void tablemodelxml(JTable tablexml) {
         try {
