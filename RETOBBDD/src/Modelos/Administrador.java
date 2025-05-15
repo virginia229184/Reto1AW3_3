@@ -1,5 +1,4 @@
 package Modelos;
 
-public class Administrador extends Persona {
 
-}
+public class Administrador extends Persona{}

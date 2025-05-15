@@ -2,15 +2,20 @@ package BBDD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import Controlador.Coordinador;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import Modelos.Persona;
 
-public class personaConnect {
-	
+/*public class personaConnect {
+
 	Connection connect() {
 		
 		String url= "jdbc:mysql://localhost:3306/yelmocines";
@@ -42,13 +47,45 @@ public class personaConnect {
 			while(resultset.next()) {
 				Persona persona = new Persona();
 				persona.setDNI(resultset.getString("DNI"));
-				persona.setNombre(resultset.getString("Nombre"));
-				persona.setApellido(resultset.getString("Apellido"));
-				persona.setRol(resultset.getString("Rol"));
-				persona.setEmail(resultset.getString("Email"));
-				persona.setTelefono(resultset.getString("Telefono"));
-				persona.setContraseña(resultset.getString("Contraseña"));
+				persona.setNombre(resultset.getString("nombre"));
+				persona.setApellido(resultset.getString("apellido"));
+				persona.setRol(resultset.getString("rol"));
+				persona.setEmail(resultset.getString("email"));
+				persona.setTelefono(resultset.getString("telefono"));
+				persona.setContrasena(resultset.getString("contrasena"));
 				personaList.add(persona);
+				
+			}
+			
+		}catch(SQLException e) {
+			System.err.println("Error en getPersona");
+			
+		}
+		con.close();
+		
+		return personaList;
+		
+	}
+	
+	public ArrayList<Persona> getPersonaNombre(JComboBox comboCliente) throws SQLException {
+		Connection con = connect();
+		Statement st = con.createStatement();
+		String consulta = "SELECT * FROM persona where nombre = " + "'" + comboCliente.getSelectedItem().toString()+ "'" + ";";
+				
+		ResultSet resultset = (ResultSet) st.executeQuery(consulta);
+		ArrayList<Persona> personaList = new ArrayList<Persona>();
+		
+		try {
+			while(resultset.next()) {
+				Persona persona2 = new Persona();
+				persona2.setDNI(resultset.getString("DNI"));
+				persona2.setNombre(resultset.getString("nombre"));
+				persona2.setApellido(resultset.getString("apellido"));
+				persona2 .setRol(resultset.getString("rol"));
+				persona2.setEmail(resultset.getString("Email"));
+				persona2.setTelefono(resultset.getString("telefono"));
+				persona2.setContrasena(resultset.getString("contrasena"));	
+				personaList.add(persona2);
 				
 			}
 			
@@ -95,9 +132,9 @@ public class personaConnect {
 	public void registrarPersona (Persona persona) throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();
-		String consulta = "INSERT INTO Persona (Dni, nombre, apellido, rol, email, telefono, contraseña) VALUES(" + persona.getDNI() + ", "
-				+ persona.getNombre() + "," + persona.getApellido() + "," + persona.getRol() + "," + persona.getEmail() +
-				"," + persona.getTelefono() + "," + persona.getContraseña() + ");";
+		String consulta = "INSERT INTO Persona (Dni, nombre, apellido, rol, email, telefono, contraseña) VALUES('" + persona.getDNI() + "', '"
+				+ persona.getNombre() + "','" + persona.getApellido() + "','" + persona.getRol() + "','" + persona.getEmail() +
+				"','" + persona.getTelefono() + "','" + persona.getContrasena() + "');'";
 		st.execute(consulta);
 		
 		con.close();
@@ -109,6 +146,7 @@ public class personaConnect {
 		String consulta = "UPDATE persona SET Dni = Dni -" +persona.getDNI() + "WHERE Nombre =" + "'";
 	}
 	
+
 	
 	
-}
+}*/

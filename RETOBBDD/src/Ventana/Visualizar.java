@@ -16,8 +16,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import Controlador.Coordinador; 
+import Controlador.Coordinador;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
+import javax.swing.JPasswordField; 
 public class Visualizar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +29,9 @@ public class Visualizar extends JFrame {
 	private JTable table;
 	public DefaultTableModel TableModel;
 	public JComboBox comboCliente;
-	private JTextField textFieldDatos;
+	public JTextField textFieldBuscador;
+	public JButton BotonCopiaSeg;
+	public JButton ButtonCargar;
 	
 
 	/**
@@ -60,18 +66,23 @@ public class Visualizar extends JFrame {
 		scrollPane.setBounds(10, 10, 814, 173);
 		contentPane.add(scrollPane);
 		
-		TableModel = new DefaultTableModel(new Object[] {"DNI", "nombre", "apellido", "telefono", "email", "rol", "Contraseña"}, 0);
+		TableModel = new DefaultTableModel(new Object[] {"DNI", "nombre", "apellido", "rol", "email", "telefono", "contrasena"}, 0);
 		
 		table = new JTable(TableModel);
 		scrollPane.setViewportView(table);
-		/*Controlador.Coordinador.getVisualizarPersonas(TableModel);*/
+		
+		
 		
 		JComboBox comboCliente = new JComboBox<Object>();
+		comboCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coordinador.getVisualizarEmpleado(TableModel, comboCliente);
+			}
+		});
 		comboCliente.setBounds(366, 210, 105, 29);
 		contentPane.add(comboCliente);
-		Coordinador.VisualizarPersonasComboBox(comboCliente);
+		Coordinador.VisualizarEmpleadoComboBox(comboCliente);
 		
-	
 		
 		JLabel lblDNI = new JLabel("Datos:");
 		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -79,23 +90,46 @@ public class Visualizar extends JFrame {
 		contentPane.add(lblDNI);
 		
 		
-		JButton btnNewButton = new JButton("Cargar Copia de \r\nSeguridad");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(639, 338, 185, 55);
-		contentPane.add(btnNewButton);
+		JButton ButtonCargar = new JButton("Cargar Copia de \r\nSeguridad");
+		ButtonCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Coordinador.VisualizarFicheroBinario(ButtonCargar);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		ButtonCargar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		ButtonCargar.setBounds(639, 338, 185, 55);
+		contentPane.add(ButtonCargar);
 		
 		JButton BotonCopiaSeg = new JButton("Copia de Seguridad");
 		BotonCopiaSeg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Coordinador.CargarFicherosBinarios(BotonCopiaSeg);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		BotonCopiaSeg.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		BotonCopiaSeg.setBounds(639, 273, 185, 55);
 		contentPane.add(BotonCopiaSeg);
 		
-		textFieldDatos = new JTextField();
-		textFieldDatos.setBounds(317, 278, 216, 19);
-		contentPane.add(textFieldDatos);
-		textFieldDatos.setColumns(10);
+		textFieldBuscador = new JTextField();
+		textFieldBuscador.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				Controlador.Coordinador.buscarDatos(TableModel, table, textFieldBuscador);
+			}
+		});
+		textFieldBuscador.setBounds(317, 278, 216, 19);
+		contentPane.add(textFieldBuscador);
+		textFieldBuscador.setColumns(10);
+		
 	}
 }
