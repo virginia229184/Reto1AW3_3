@@ -71,7 +71,7 @@ public class Coordinador implements ActionListener {
 			sesion.addHandler(fileHandler);
 			sesion.setLevel(Level.ALL);
 
-			//fichero global para errores
+			//			fsichero global para errores
 			FileHandler fileHandler1 = new FileHandler("errores.html", true);
 			fileHandler1.setFormatter(new FormatoHTML());
 			errores.addHandler(fileHandler1);
@@ -455,10 +455,10 @@ public class Coordinador implements ActionListener {
      * @return
      */
     
-    public static void buscarDatos(DefaultTableModel tablemodel,JTable tablexml,JTextField textFieldBuscador) {
-        DefaultTableModel ob=(DefaultTableModel) tablexml.getModel();
+    public static void buscarDatos(DefaultTableModel tablemodel,JTable table,JTextField textFieldBuscador) {
+        DefaultTableModel ob=(DefaultTableModel) table.getModel();
         TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
-        tablexml.setRowSorter(obj);
+        table.setRowSorter(obj);
         obj.setRowFilter(RowFilter.regexFilter(textFieldBuscador.getText()));
     }
 	
