@@ -13,7 +13,22 @@ import com.mysql.jdbc.Connection;
 import Modelos.Administrador;
 import Modelos.Empleado;
 
+/**
+ * Conexion con la base de datos Administrador
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
+
 public class adminConnect {
+	
+	/**
+	 * Este es lo que conecta la app con la base de datos
+	 * @param url: la url que conecta a esa base especifica 
+	 * @param username: es el nombre de usuario que tiene
+	 * @param password: la contraseña de la base de datos, en este caso, no tiene
+	 * @return
+	 */
 	
 	Connection connect() {
 		
@@ -34,6 +49,11 @@ public class adminConnect {
 		return connect;
 	}
 
+	/**
+	 * Esto sentencia es utilizada para Iniciar Sesion como administrador
+	 * @param rol
+	 * @throws SQLException
+	 */
 	public void getSesionAdmin (String rol) throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();
@@ -41,6 +61,11 @@ public class adminConnect {
 		
 	}
 	
+	/**
+	 * Esta sentencia utilizada para los datos de Administrador
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Administrador> getAdmin() throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();

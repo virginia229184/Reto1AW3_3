@@ -19,6 +19,12 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Esta es la ventana para eliminar el Empleado
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class EliminarPersona extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +34,7 @@ public class EliminarPersona extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un array que recibe datos 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,7 +53,7 @@ public class EliminarPersona extends JFrame {
 	 * Create the frame.
 	 */
 	public EliminarPersona() {
-		// imagen
+		
 		//imagen
 				setIconImage(
 						new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
@@ -72,6 +79,10 @@ public class EliminarPersona extends JFrame {
 		JButton btnRegistrar = new JButton("Eliminar");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
+			/**
+			 * Esto permite ejecutar la funcion eliminar al darle al boton
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Coordinador.EliminarEmpleado(textFieldDNI);
 				
@@ -83,6 +94,9 @@ public class EliminarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion hace que al darle al boton, se salga del programa
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}

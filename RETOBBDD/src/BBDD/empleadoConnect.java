@@ -16,11 +16,19 @@ import Modelos.Empleado;
 /**
  * Conexion a la base de Empleados
  * 
- * @author 1AW3-17 JON OTAZUA
- * @version 05.15.2025
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
  */
 
 public class empleadoConnect {
+	
+	/**
+	 * Este es lo que conecta la app con la base de datos
+	 * @param url: la url que conecta a esa base especifica 
+	 * @param username: es el nombre de usuario que tiene
+	 * @param password: la contraseña de la base de datos, en este caso, no tiene
+	 * @return
+	 */
 	
 	Connection connect() {
 		
@@ -43,7 +51,11 @@ public class empleadoConnect {
 	}
 	
 	
-	
+	 /**
+	  * La sentencia que genera los datos de toda la tabla de persona
+	  * @return
+	  * @throws SQLException
+	  */
 	
 	public ArrayList<Empleado> getEmpleado() throws SQLException {
 		Connection con = connect();
@@ -75,6 +87,14 @@ public class empleadoConnect {
 		return empleadoList;
 		
 	}
+	
+	
+	/**
+	 * Esta sentencia es utilizada cuando seleccionamos un campo en el comboBox
+	 * @param comboCliente
+	 * @return
+	 * @throws SQLException
+	 */
 	
 	public ArrayList<Empleado> getEmpleadoNombre(JComboBox comboCliente) throws SQLException {
 		Connection con = connect();
@@ -108,6 +128,13 @@ public class empleadoConnect {
 		
 	}
 	
+	
+	/**
+	 * Esta sentencia es utilizada para el filtro de Nombre
+	 * @return
+	 * @throws SQLException
+	 */
+	
 	public ArrayList<Empleado> getEmpleadoCombo()throws SQLException{
 		Connection con = connect();
 		Statement st = con.createStatement();
@@ -132,12 +159,25 @@ public class empleadoConnect {
 		
 	}
 	
+	/**
+	 * Esta sentencia sirve para borrar los empleados usando el Dni
+	 * @param Dni
+	 * @throws SQLException
+	 */
+	
 	public void borrarEmpleado (String Dni) throws SQLException{
 		Connection con = connect();
 		Statement st = con.createStatement();
 		String consulta = "DELETE FROM Persona WHERE Dni = " +Dni;
+		st.execute(consulta);
 		
 	}
+	
+	/**
+	 * La sentencia sirve para introducir nuevos Empleados
+	 * @param empleado
+	 * @throws SQLException
+	 */
 	public void registrarEmpleado (Empleado empleado) throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();
@@ -149,6 +189,11 @@ public class empleadoConnect {
 		con.close();
 	}
 	
+	/**
+	 * Esta sentencia ayuda a Modificar los empleados
+	 * @param empleado
+	 * @throws SQLException
+	 */
 	public void modificarEmpleado (Empleado empleado) throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();
@@ -156,6 +201,11 @@ public class empleadoConnect {
 		st.execute(consulta);
 	}
 	
+	/**
+	 * Esta sentencia se utiliza para Iniciar Sesion como Empleado
+	 * @param rol
+	 * @throws SQLException
+	 */
 	public void getSesionEmpleado (String rol) throws SQLException {
 		Connection con = connect();
 		Statement st = con.createStatement();

@@ -16,6 +16,12 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * La ventana de Iniciar Sesion
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class IniciarSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -26,6 +32,7 @@ public class IniciarSesion extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un array que recibe datos 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -79,6 +86,10 @@ public class IniciarSesion extends JFrame {
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnIniciarSesion.addActionListener(new ActionListener() {
+			/**
+			 * Esto conecta la funcion de IniciarSesion a la ventana 
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Controlador.Coordinador.IniciarSesion(textFieldDNI, textFieldContrasena);
 				
@@ -90,6 +101,9 @@ public class IniciarSesion extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion hace que al darle al boton, se salga del programa
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
@@ -111,4 +125,6 @@ public class IniciarSesion extends JFrame {
 		txtRegistrar.setEditable(false); // No permite editar el texto
 		
 	}
+	
+	
 }

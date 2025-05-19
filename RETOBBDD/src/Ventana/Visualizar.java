@@ -1,6 +1,7 @@
 package Ventana;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,6 +23,12 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 import javax.swing.JPasswordField; 
+/**
+ * Esta es la ventana de visualizar los datos de los empleados
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class Visualizar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -36,6 +43,7 @@ public class Visualizar extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un array que carga datos
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -75,6 +83,11 @@ public class Visualizar extends JFrame {
 		
 		JComboBox comboCliente = new JComboBox<Object>();
 		comboCliente.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion permite cargar los datos de los empleados en la tabla
+			 * Abajo esta la funcion VisualizarEmpleadoComboBox que carga el filtro en el comboBox
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Coordinador.getVisualizarEmpleado(TableModel, comboCliente);
 			}
@@ -97,6 +110,10 @@ public class Visualizar extends JFrame {
 		
 		JButton BotonCopiaSeg = new JButton("Copia de Seguridad");
 		BotonCopiaSeg.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion permite cargar un fichero txt con datos encriptados, al darle al boton
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Coordinador.CargarFicherosBinarios(BotonCopiaSeg);

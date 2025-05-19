@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Esta ventana es utilizada para la modificacion de Empleados en la base de datos
+ */
 public class ModificarPersona extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +34,7 @@ public class ModificarPersona extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param: es un array que recibe datos
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -135,6 +139,10 @@ public class ModificarPersona extends JFrame {
 		JButton btnRegistrar = new JButton("Modificar");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
+			/**
+			 * Esto conecta con la funcion de ModificarEmpleado a la ventana
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Controlador.Coordinador.modificarEmpleado(textFieldDNI, textFieldNombre, textFieldApellido, textFieldRol, textFieldApellido, textFieldTelefono, textFieldContrasena);
 			}
@@ -145,6 +153,9 @@ public class ModificarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion hace que al darle al boton, se salga del programa
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				

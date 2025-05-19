@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Esta ventana registrar a los nuevos empleados en la base de datos
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class RegistrarPersona extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +38,7 @@ public class RegistrarPersona extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un array que recibe datos
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -137,6 +144,10 @@ public class RegistrarPersona extends JFrame {
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/**
+				 * Esto conecta con la funcion GuardarEmpleado a la ventana
+				 * @param e
+				 */
 				try {
 					Controlador.Coordinador.GuardarEmpleado(textFieldDNI, textFieldNombre, textFieldApellido, textFieldRol,
 							textFieldMail, textFieldTelefono, textFieldContrasena);
@@ -152,6 +163,9 @@ public class RegistrarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion hace que al darle al boton, se salga del programa
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}

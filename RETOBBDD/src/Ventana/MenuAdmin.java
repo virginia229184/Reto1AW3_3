@@ -17,6 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 
+/**
+ * Esto es el menu del Administrador, que tendra cuatro botones
+ * 
+ * @author 1AW3-17 FELIPE VIRGIA JON
+ * @version 05.19.2025
+ */
 public class MenuAdmin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +31,7 @@ public class MenuAdmin extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un array que recibe datos 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -81,6 +88,10 @@ public class MenuAdmin extends JFrame {
 		JButton btnEliminar = new JButton("ELIMINAR");
 		panel.add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
+			/**
+			 * Cuando le das al boton te llevara a la ventana Eliminar
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				EliminarPersona frame = new EliminarPersona();
             	frame.setVisible(true);
@@ -93,6 +104,10 @@ public class MenuAdmin extends JFrame {
 		JButton btnModificar = new JButton("MODIFICAR");
 		panel.add(btnModificar);
 		btnModificar.addActionListener(new ActionListener() {
+			/**
+			 * Cuando le das al boton te llevara a la ventana Modificar
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				ModificarPersona frame = new ModificarPersona();
             	frame.setVisible(true);
@@ -105,6 +120,10 @@ public class MenuAdmin extends JFrame {
 		JButton btnRegistrar = new JButton("REGISTRAR");
 		panel.add(btnRegistrar);
 		btnRegistrar.addActionListener(new ActionListener() {
+			/**
+			 * Cuando le das al boton te llevara a la ventana Registrar
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				RegistrarPersona frame = new RegistrarPersona();
             	frame.setVisible(true);
@@ -116,6 +135,10 @@ public class MenuAdmin extends JFrame {
 		JButton btnVisualizar = new JButton("VISUALIZAR + Copia de Seguridad");
 		panel.add(btnVisualizar);
 		btnVisualizar.addActionListener(new ActionListener() {
+			/**
+			 * Cuando le das al boton te llevara a la ventana Visualizar + Copia de Seguridad
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Visualizar frame = new Visualizar();
 				frame.setVisible(true);

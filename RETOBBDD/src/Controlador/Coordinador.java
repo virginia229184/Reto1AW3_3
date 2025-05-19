@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -41,12 +42,25 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * El Coordinador, el encargado de llevar a cabo todo el programa
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class Coordinador implements ActionListener {
+	
+	
 	
 	
 	private static final Logger sesion = Logger.getLogger("sesionLogger");
 	private static final Logger errores = Logger.getLogger("erroresLogger");
 	private static final LogManager logManager = LogManager.getLogManager();
+	
+	/**
+	 * Esto servira para poder utilizar los loggers a traves del programa
+	 */
+	
 	static {
 		try {
 			LogManager.getLogManager().reset();
@@ -57,7 +71,7 @@ public class Coordinador implements ActionListener {
 			sesion.addHandler(fileHandler);
 			sesion.setLevel(Level.ALL);
 
-//			fichero global para errores
+			//fichero global para errores
 			FileHandler fileHandler1 = new FileHandler("errores.html", true);
 			fileHandler1.setFormatter(new FormatoHTML());
 			errores.addHandler(fileHandler1);
@@ -77,6 +91,15 @@ public class Coordinador implements ActionListener {
 	Administrador miAdministrador;
 	
 	empleadoConnect miEmpleadoConnect;
+	
+	/**
+	 * Aqui pasas todas las clases al Coordinador 
+	 * @param paramPersona
+	 * @param paramVisualizar
+	 * @param empleadoParam
+	 * @param adminParam
+	 * @param paramEmpleadoConnect
+	 */
 
 	public Coordinador(Persona paramPersona, Visualizar paramVisualizar,
 			Empleado empleadoParam, Administrador adminParam, empleadoConnect paramEmpleadoConnect) {
@@ -87,15 +110,20 @@ public class Coordinador implements ActionListener {
 		this.miAdministrador = adminParam;
 		
 		this.miEmpleadoConnect = paramEmpleadoConnect;
+		
 	}
 
+	//Coordinador vacio
 	public Coordinador() {
 
 	}
 	
 	
 	
-	
+	/**
+	 * Esto hace la accion de guardar el Empleado 
+	 * @param textFieldDatos
+	 */
 	public static void GuardarEmpleado(JTextField textFieldDatos) {
 
 		empleadoConnect empleCon = new empleadoConnect();
@@ -113,6 +141,12 @@ public class Coordinador implements ActionListener {
 
 	}
 	
+	/**
+	 * Tiene la funcion de ejecutar la ventana de Inicio de Sesion
+	 * Puede iniciar sesion tanto como empleado y administrador
+	 * @param textFieldDNI
+	 * @param textFieldContrasena
+	 */
 	public static void IniciarSesion(JTextField textFieldDNI, JTextField textFieldContrasena) {
 
 		empleadoConnect empleCon = new empleadoConnect();
@@ -171,6 +205,10 @@ public class Coordinador implements ActionListener {
 
 	}
 	
+	/**
+	 * Tiene la funcion de Eliminar el Empleado usando el Dni
+	 * @param textFieldDNI
+	 */
 	public static void EliminarEmpleado(JTextField textFieldDNI) {
 
 		empleadoConnect empleCon = new empleadoConnect();
@@ -205,6 +243,10 @@ public class Coordinador implements ActionListener {
 
 	}
 
+	/**
+	 * Se crean los filtros para el ComboBox
+	 * @param comboCliente
+	 */
 	public static void VisualizarEmpleadoComboBox(JComboBox<String> comboCliente) {
 
 		
@@ -213,6 +255,11 @@ public class Coordinador implements ActionListener {
 		
 	}
 
+	/**
+	 * Se le da la funcion al comboBox, para que los filtros carguen los datos
+	 * @param TableModel
+	 * @param comboCliente
+	 */
 	public static void getVisualizarEmpleado(DefaultTableModel TableModel, JComboBox comboCliente) {
 
 		empleadoConnect empleCon = new empleadoConnect();
@@ -249,6 +296,16 @@ public class Coordinador implements ActionListener {
 
 	}
 	
+	/**
+	 * Esta Funcion es utilizado en la ventana de modificar
+	 * @param textFieldDNI
+	 * @param textFieldNombre
+	 * @param textFieldApellido
+	 * @param textFieldRol
+	 * @param textFieldEmail
+	 * @param textFieldTelefono
+	 * @param textFieldContrasena
+	 */
 	public static void modificarEmpleado(JTextField textFieldDNI, JTextField textFieldNombre,
 			JTextField textFieldApellido, JTextField textFieldRol, JTextField textFieldEmail,
 			JTextField textFieldTelefono, JTextField textFieldContrasena) {
@@ -293,6 +350,17 @@ public class Coordinador implements ActionListener {
 
 	}
 	
+	/**
+	 * Este lleva la funcion de la ventana Guardar
+	 * @param textFieldDNI
+	 * @param textFieldNombre
+	 * @param textFieldApellido
+	 * @param textFieldRol
+	 * @param textFieldMail
+	 * @param textFieldTelefono
+	 * @param textFieldContrasena
+	 * @throws IOException
+	 */
 	public static void GuardarEmpleado(JTextField textFieldDNI, JTextField textFieldNombre, JTextField textFieldApellido,
 			JTextField textFieldRol, JTextField textFieldMail, JTextField textFieldTelefono,
 			JTextField textFieldContrasena) throws IOException {
@@ -326,6 +394,10 @@ public class Coordinador implements ActionListener {
 	}
 	
 	
+	/**
+	 * Esta tiene la funcion de cargar el XML en la ventana de reserva
+	 * @param tablexml
+	 */
 	public static void tablemodelxml(JTable tablexml) {
         try {
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
@@ -340,8 +412,8 @@ public class Coordinador implements ActionListener {
                 String hora = getTextContent(sesion, "hora");
                 String dia = getTextContent(sesion, "dia");
                 String aforo = getTextContent(sesion, "aforo");
-                String cif = getTextContent(sesion, "cif");
-                String idPelicula = getTextContent(sesion, "idPelicula");
+                String idPelicula = getTextContent(sesion, "id_pelicula");
+                String cif = getTextContent(sesion, "CIF");
                 model.addRow(new Object[] { idSesion, hora, dia, aforo, cif, idPelicula });
             }
         } catch (Exception ex) {
@@ -349,6 +421,10 @@ public class Coordinador implements ActionListener {
         }
     }
 
+	/**
+	 * Esta funcion sirve para que busque los archivos 
+	 * @return
+	 */
     public static String exploradorArchivos() {
         String filepath = "";
         JFileChooser selector = new JFileChooser();
@@ -363,6 +439,7 @@ public class Coordinador implements ActionListener {
         return filepath;
     }
 
+    
     private static String getTextContent(Node record, String tagName) {
         NodeList list = ((org.w3c.dom.Element) record).getElementsByTagName(tagName);
         if (list.getLength() > 0) {
@@ -371,6 +448,12 @@ public class Coordinador implements ActionListener {
         return "";
     }
     
+    /**
+     * Esto le da la funcionalidad al buscador de Ventanas
+     * @param record
+     * @param tagName
+     * @return
+     */
     
     public static void buscarDatos(DefaultTableModel tablemodel,JTable tablexml,JTextField textFieldBuscador) {
         DefaultTableModel ob=(DefaultTableModel) tablexml.getModel();
@@ -380,7 +463,11 @@ public class Coordinador implements ActionListener {
     }
 	
     
-    
+    /**
+     * Esto es un boton con la funcion de cargar un fichero binario en un txt
+     * @param BotonCopiaSeg
+     * @throws SQLException
+     */
     public static void CargarFicherosBinarios(JButton BotonCopiaSeg) throws SQLException {
     	File archivo = new File("escritura.dat");
     	adminConnect admConnect = new adminConnect();

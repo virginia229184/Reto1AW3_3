@@ -12,6 +12,12 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Esta es la ventana de Reserva en donde el Empleado cargara un fichero XML
+ * 
+ * @author 1AW3-17 FELIPE VIRGINIA JON
+ * @version 05.19.2025
+ */
 public class XMLForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +27,7 @@ public class XMLForm extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args: es un Array que carga datos
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,6 +66,10 @@ public class XMLForm extends JFrame {
 
 		JButton btnNewButton = new JButton("CARGAR ");
 		btnNewButton.addActionListener(new ActionListener() {
+			/**
+			 * Esto conecta la funcion TableModelXML al boton Cargar
+			 * @param e
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Controlador.Coordinador.tablemodelxml(tablexml);
 			}
@@ -72,6 +83,9 @@ public class XMLForm extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Esta funcion hace que al darle al boton, se salga del programa
+			 */
 			public void actionPerformed(ActionEvent e) {
 				
 				System.exit(0);
