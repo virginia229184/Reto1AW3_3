@@ -52,5 +52,10 @@ public class Empleado extends Persona{
 		// TODO Auto-generated constructor stub
 	}
 	
+	 @Override
+     public String toString() {
+            return "Empleado [DNI=" + Dni + ",rol=" + rol + ", contraseña=" + contrasena + "]";
+        }
+	
 	
 }
