@@ -1,6 +1,12 @@
+
+/**
+ * paquete Ventana, que con tiene las clases
+ * EliminarPersona,IniciarSesion, Menu1, ModificarPersona, RegistrarPersona, Visualizar, XMLForm
+ */
 package Ventana;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -16,15 +22,41 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Clase eliminarPersona, consiste en una ventana para eliminar una persona utilizando su DNI
+ * tiene botones para ejecutar la eliminación y salir del formulario.
+ * @author FELIPE 
+ * @author VIRGINIA 
+ * @author JON
+ * @version 1.0
+ */
+
 public class EliminarPersona extends JFrame {
+	
+	
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel principal de la ventana
+	 */
 	private JPanel contentPane;
+	/**
+	 * Campo para ingresar DNI 
+	 */
+
 	private JTextField textFieldDNI;
+	/**
+	 * Campo para registrar texto
+	 */
 	private JTextField txtRegistrar;
 
 	/**
 	 * Launch the application.
+	 */
+	
+	/**
+	 * Método para mostrar la ventana de eliminación.
+	 * @param args  argumentos de línea de comandos (no usados)
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -42,10 +74,16 @@ public class EliminarPersona extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	/**
+	 * Constructor que crea y configura la ventana para eliminar personas
+     * 
+	 */
 	public EliminarPersona() {
 		// imagen
-		setIconImage(
-				new ImageIcon("C:/Users/AMANDA/Downloads/RETO (6)/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+		//imagen
+				setIconImage(
+						new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 781, 589);
@@ -68,8 +106,18 @@ public class EliminarPersona extends JFrame {
 		JButton btnRegistrar = new JButton("Eliminar");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
+			
+			
+			
+			
+			 /**
+             * Acción que se ejecuta al pulsar el botón "Eliminar".
+             * Llama al método para eliminar el empleado usando el DNI introducido
+             * 
+             * @param e evento de acción
+             */
 			public void actionPerformed(ActionEvent e) {
-				Controlador.Coordinador.EliminarPersona(textFieldDNI);
+				Controlador.Coordinador.EliminarEmpleado(textFieldDNI);
 				
 			}
 		});
@@ -79,8 +127,17 @@ public class EliminarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			
+			 /**
+             * Acción que se ejecuta al pulsar el botón "Salir"
+             * Cierra esta ventana y abre el menú principal
+             * 
+             * @param e evento de acción
+             */
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				Menu frame = new Menu();
+				frame.setVisible(true);
+				
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));

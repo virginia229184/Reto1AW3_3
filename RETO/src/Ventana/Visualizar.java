@@ -1,6 +1,7 @@
 package Ventana;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,21 +26,64 @@ import java.sql.SQLException;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.Color; 
+
+
+ 
+ 
+/**
+ * Ventana que permite visualizar usuarios, buscarlos y manejar copias de seguridad
+ * @author FELIPE 
+ * @author VIRGINIA 
+ * @author JON
+ * @version 1.0
+ */
 public class Visualizar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel principal que contiene los componentes visuales
+	 */
 	private JPanel contentPane;
+
+	/**
+	 * Tabla para mostrar datos en formato tabular
+	 */
 	private JTable table;
+
+	/**
+	 * Modelo de datos de la tabla, permite manipular el contenido
+	 */
 	public DefaultTableModel TableModel;
+
+	/**
+	 * Lista desplegable para seleccionar clientes
+	 */
 	public JComboBox comboCliente;
+
+	/**
+	 * Campo de texto para realizar búsquedas
+	 */
 	public JTextField textFieldBuscador;
+
+	/**
+	 * Botón para crear una copia de seguridad
+	 */
 	public JButton BotonCopiaSeg;
-	public JButton ButtonCargar;
-	private JTextField txtSesin;
+	/**
+	 * campo de texto en el que esta escrito el titulo de la ventana
+	 */
+	private JTextField txtVisualizar;
+
 	
+
 
 	/**
 	 * Launch the application.
+	 */
+	/**
+	 * Método que muestra la ventana Visualizar
+	 * 
+	 * @param args Argumentos de línea de comandos.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -56,7 +101,14 @@ public class Visualizar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	/**
+	 * Contructor para crear la ventana y sus componentes
+	 */
 	public Visualizar() {
+		
+		setIconImage(
+				new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 932, 599);
 		contentPane = new JPanel();
@@ -78,6 +130,11 @@ public class Visualizar extends JFrame {
 		
 		JComboBox comboCliente = new JComboBox<Object>();
 		comboCliente.addActionListener(new ActionListener() {
+			/**
+			 * Llama al método para mostrar los datos del empleado seleccionado
+			 * 
+			 * @param e Evento de selección en el JComboBox
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Coordinador.getVisualizarEmpleado(TableModel, comboCliente);
 			}
@@ -94,6 +151,21 @@ public class Visualizar extends JFrame {
 		
 		
 		JButton ButtonCargar = new JButton("Cargar Copia de \r\nSeguridad");
+		ButtonCargar.addActionListener(new ActionListener() {
+			/**
+			 * Carga datos desde una copia de seguridad
+			 * 
+			 * @param e Evento de clic en el botón
+			 */
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Coordinador.VisualizarFicheroBinario(ButtonCargar,TableModel);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		ButtonCargar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		ButtonCargar.setBounds(667, 475, 185, 55);
 		contentPane.add(ButtonCargar);
@@ -101,6 +173,11 @@ public class Visualizar extends JFrame {
 		
 		JButton BotonCopiaSeg = new JButton("Copia de Seguridad");
 		BotonCopiaSeg.addActionListener(new ActionListener() {
+			/**
+			 * Guarda los datos actuales en una copia de seguridad.
+			 * 
+			 * @param e Evento de clic en el botón
+			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Coordinador.CargarFicherosBinarios(BotonCopiaSeg);
@@ -117,6 +194,11 @@ public class Visualizar extends JFrame {
 		
 		textFieldBuscador = new JTextField();
 		textFieldBuscador.addKeyListener(new KeyAdapter() {
+			/**
+			 * Filtra los datos en la tabla al escribir en el campo buscador
+			 * 
+			 * @param e Señal que indica que se ha soltado una tecla
+			 */
 			@Override
 			public void keyReleased(KeyEvent e) {
 				Controlador.Coordinador.buscarDatos(TableModel, table, textFieldBuscador);
@@ -126,16 +208,20 @@ public class Visualizar extends JFrame {
 		contentPane.add(textFieldBuscador);
 		textFieldBuscador.setColumns(10);
 		
-		txtSesin = new JTextField();
-		txtSesin.setForeground(new Color(255, 255, 255));
-		txtSesin.setFont(new Font("Tahoma", Font.BOLD, 38));
-		txtSesin.setHorizontalAlignment(SwingConstants.CENTER);
-		txtSesin.setText("Visualizar");
-		txtSesin.setBounds(0, 0, 918, 73);
-		contentPane.add(txtSesin);
-		txtSesin.setColumns(10);
-		txtSesin.setBackground(Color.decode("#002069"));
-		txtSesin.setEditable(false); // No permite editar el texto
+
+		txtVisualizar = new JTextField();
+		txtVisualizar.setForeground(new Color(255, 255, 255));
+		txtVisualizar.setFont(new Font("Tahoma", Font.BOLD, 38));
+		txtVisualizar.setHorizontalAlignment(SwingConstants.CENTER);
+		txtVisualizar.setText("Visualizar");
+		txtVisualizar.setBounds(0, 0, 918, 73);
+		contentPane.add(txtVisualizar);
+		
+		
+		
+		txtVisualizar.setColumns(10);
+		txtVisualizar.setBackground(Color.decode("#002069"));
+		txtVisualizar.setEditable(false); // No permite editar el texto
 		
 	}
 }

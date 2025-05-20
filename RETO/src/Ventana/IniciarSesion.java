@@ -1,6 +1,8 @@
 package Ventana;
 
 import java.awt.Color;
+
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -15,18 +17,55 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+/**
+ *  Ventana para iniciar sesión en la aplicación
+ *  El usuario introduce el DNI y la contraseña
+ *  Tiene botones para inicar sesión y para salir
+ * 
+ * @author FELIPE 
+ * @author VIRGINIA 
+ * @author JON
+ * @version 1.0
+ */
 
 public class IniciarSesion extends JFrame {
 
+	
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel principal que contiene los componentes gráficos 
+	 */
+	
 	private JPanel contentPane;
+	/**
+	 * Campo de texto para ingresar el DNI
+	 */
+	
 	private JTextField textFieldDNI;
-	private JTextField textFieldContrasena;
+	
+	/**
+	 * Campo de texto en el que se muestra el título de la ventana
+	 */
 	private JTextField txtRegistrar;
+	
+	
+	
+	/**
+	 * Campo para ingresar la contraseña
+	 */
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	  /**
+     * Método para mostrar la ventana de inicio de sesión.
+     * 
+     * @param args argumentos de línea de comandos (no usados)
+     */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,10 +82,15 @@ public class IniciarSesion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	/**
+     * Constructor que crea y configura la ventana de inicio de sesión.
+     * 
+     */
 	public IniciarSesion() {
 		// imagen
 		setIconImage(
-				new ImageIcon("C:/Users/AMANDA/Downloads/RETO (6)/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+				new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 781, 589);
@@ -71,16 +115,19 @@ public class IniciarSesion extends JFrame {
 		contentPane.add(textFieldDNI);
 		textFieldDNI.setColumns(10);
 
-		textFieldContrasena = new JTextField();
-		textFieldContrasena.setBounds(386, 253, 107, 27);
-		contentPane.add(textFieldContrasena);
-		textFieldContrasena.setColumns(10);
-
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnIniciarSesion.addActionListener(new ActionListener() {
+			
+			/**
+             * Acción que se ejecuta al pulsar el botón "Iniciar Sesión"
+             * Llama al método del coordinador para validar y procesar el inicio de sesión
+             * con el DNI y la contraseña introducidos
+             * 
+             * @param e evento de acción generado por el botón
+             */
 			public void actionPerformed(ActionEvent e) {
-				Controlador.Coordinador.IniciarSesion(textFieldDNI, textFieldContrasena);
+				Controlador.Coordinador.IniciarSesion(textFieldDNI, passwordField);
 				
 			}
 		});
@@ -90,6 +137,13 @@ public class IniciarSesion extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			
+			   /**
+             * Acción que se ejecuta al pulsar el botón "Salir".
+             * Cierra la ventana
+             * 
+             * @param e evento de acción generado por el botón
+             */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
@@ -109,6 +163,10 @@ public class IniciarSesion extends JFrame {
 		txtRegistrar.setBackground(Color.decode("#002069"));
 		txtRegistrar.setFont(new Font("Tahoma", Font.BOLD, 38)); 
 		txtRegistrar.setEditable(false); // No permite editar el texto
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(386, 253, 107, 27);
+		contentPane.add(passwordField);
 		
 	}
 }

@@ -1,11 +1,13 @@
 package Ventana;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,21 +18,62 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Clase ModificarPersona, consiste en una ventana para modificar una persona de la base de datos
+ * tiene botones para ejecutar la modificación y salir del formulario.
+ * @author FELIPE 
+ * @author VIRGINIA 
+ * @author JON
+ * @version 1.0
+ */
 public class ModificarPersona extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel principal que contiene los componentes gráficos
+	 */
 	private JPanel contentPane;
+	/**
+	 * Campo de texto para ingresar el DN
+	 */
 	private JTextField textFieldDNI;
+	/**
+	 * Campo de texto para ingresar el nombre
+	 */
 	private JTextField textFieldNombre;
+	/**
+	 * Campo de texto para ingresar el apellido
+	 */
 	private JTextField textFieldApellido;
+	/**
+	 * Campo de texto para ingresar el rol
+	 */
 	private JTextField textFieldRol;
+	/**
+	 * Campo de texto para ingresar el correo electrónico
+	 */
 	private JTextField textFieldMail;
+	/**
+	 * Campo de texto para ingresar el teléfono
+	 */
 	private JTextField textFieldTelefono;
-	private JTextField textFieldContrasena;
+	/**
+	 * Campo para ingresar la contraseña de forma segura
+	 */
+	private JPasswordField textFieldContrasena;
+	/**
+	 * Campo de texto para acciones de registro
+	 */
 	private JTextField txtRegistrar;
 
 	/**
 	 * Launch the application.
+	 */
+	
+	/**
+	 * Método que muestra la ventana para modificar una persona.
+	 * 
+	 * @param args argumentos de línea de comandos (no utilizados)
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -48,10 +91,16 @@ public class ModificarPersona extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	/**
+	 * Constructor de la clase ModificarPersona.
+	 * 
+	 */
 	public ModificarPersona() {
 		// imagen
 		setIconImage(
-				new ImageIcon("C:/Users/AMANDA/Downloads/RETO (6)/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+				new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+	
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 781, 589);
@@ -126,7 +175,7 @@ public class ModificarPersona extends JFrame {
 		contentPane.add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);
 
-		textFieldContrasena = new JTextField();
+		textFieldContrasena = new JPasswordField();
 		textFieldContrasena.setBounds(177, 400, 96, 19);
 		contentPane.add(textFieldContrasena);
 		textFieldContrasena.setColumns(10);
@@ -134,6 +183,13 @@ public class ModificarPersona extends JFrame {
 		JButton btnRegistrar = new JButton("Modificar");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
+			/**
+			 * Acción al hacer clic en "Modificar"
+			 * Envía los datos al controlador para ser actualizados
+			 * 
+			 * @param e evento de acción del botón
+			 */
+
 			public void actionPerformed(ActionEvent e) {
 				Controlador.Coordinador.modificarPersona(textFieldDNI, textFieldNombre, textFieldApellido, textFieldRol, textFieldApellido, textFieldTelefono, textFieldContrasena);
 			}
@@ -144,8 +200,15 @@ public class ModificarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Acción al hacer clic en "Salir"
+			 * Vuelve a la ventana del menú principal
+			 * 
+			 * @param e evento de acción del botón
+			 */
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				Menu frame = new Menu();
+				frame.setVisible(true);
 				
 			}
 		});

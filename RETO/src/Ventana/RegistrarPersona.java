@@ -1,11 +1,14 @@
 package Ventana;
 
 import java.awt.Color;
+
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,21 +20,70 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Clase RegistrarPersona, consiste en una ventana para registrar una persona de la base de datos
+ * tiene botones para ejecutar el registro y salir del formulario.
+ * @author FELIPE 
+ * @author VIRGINIA 
+ * @author JON
+ * @version 1.0
+ */
+
 public class RegistrarPersona extends JFrame {
+	
+	
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel principal que contiene todos los componentes visuales
+	 */
 	private JPanel contentPane;
-	private JTextField textFieldDNI;
-	private JTextField textFieldNombre;
-	private JTextField textFieldApellido;
-	private JTextField textFieldRol;
-	private JTextField textFieldMail;
-	private JTextField textFieldTelefono;
-	private JTextField textFieldContrasena;
-	private JTextField txtRegistrar;
 
 	/**
-	 * Launch the application.
+	 * Campo para ingresar el DNI
+	 */
+	private JTextField textFieldDNI;
+
+	/**
+	 * Campo para ingresar el nombre
+	 */
+	private JTextField textFieldNombre;
+
+	/**
+	 * Campo para ingresar el apellido
+	 */
+	private JTextField textFieldApellido;
+
+	/**
+	 * Campo para ingresar el rol del usuario
+	 */
+	private JTextField textFieldRol;
+
+	/**
+	 * Campo para ingresar el correo electrónico
+	 */
+	private JTextField textFieldMail;
+
+	/**
+	 * Campo para ingresar el número de teléfono
+	 */
+	private JTextField textFieldTelefono;
+
+	/**
+	 * Campo seguro para ingresar la contraseña
+	 */
+	private JPasswordField textFieldContrasena;
+
+	/**
+	 * Campo para registrar información adicional
+	 */
+	private JTextField txtRegistrar;
+
+
+	/**
+	 * Método que muestra la ventana RegistrarPersona
+	 * 
+	 * @param args Argumentos de línea de comandos
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,10 +101,15 @@ public class RegistrarPersona extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	/**
+	 * Constructor de la clase
+	 */
 	public RegistrarPersona() {
 		// imagen
 		setIconImage(
-				new ImageIcon("C:/Users/AMANDA/Downloads/RETO (6)/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+				new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
+	
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 781, 589);
@@ -127,18 +184,26 @@ public class RegistrarPersona extends JFrame {
 		contentPane.add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);
 
-		textFieldContrasena = new JTextField();
+		textFieldContrasena = new JPasswordField();
 		textFieldContrasena.setBounds(177, 400, 96, 19);
 		contentPane.add(textFieldContrasena);
 		textFieldContrasena.setColumns(10);
 
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
 		btnRegistrar.addActionListener(new ActionListener() {
+			/**
+			 * Acción al hacer clic en "Registrar"
+			 * Envía los datos al controlador para ser registrados
+			 * 
+			 * @param e evento de acción del botón
+			 */
+
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Controlador.Coordinador.GuardarPersona(textFieldDNI, textFieldNombre, textFieldApellido, textFieldRol,
-							textFieldMail, textFieldTelefono, textFieldContrasena);
+							textFieldMail, textFieldTelefono,  textFieldContrasena);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -151,8 +216,15 @@ public class RegistrarPersona extends JFrame {
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
+			/**
+			 * Acción al hacer clic en "Salir"
+			 * Vuelve a la ventana del menú principal
+			 * 
+			 * @param e evento de acción del botón
+			 */
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				Menu frame = new Menu();
+				frame.setVisible(true);
 			}
 		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
