@@ -120,6 +120,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EliminarPersona frame = new EliminarPersona();
             	frame.setVisible(true);
+            	dispose();
 			}
 		});
 		btnEliminar.setBackground(Color.decode("#FBCF4C"));
@@ -139,6 +140,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ModificarPersona frame = new ModificarPersona();
             	frame.setVisible(true);
+            	dispose();
 				
 			}
 		});
@@ -157,12 +159,13 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarPersona frame = new RegistrarPersona();
             	frame.setVisible(true);
+            	dispose();
 			}
 		});
 		btnRegistrar.setBackground(Color.decode("#FBCF4C"));
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 21)); 
 		
-		JButton btnVisualizar = new JButton("VISUALIZAR + Copia de Seguridad");
+		JButton btnVisualizar = new JButton("VISUALIZAR y Copia de Seguridad");
 		panel.add(btnVisualizar);
 		btnVisualizar.addActionListener(new ActionListener() {
 			/**
@@ -174,7 +177,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Visualizar frame = new Visualizar();
 				frame.setVisible(true);
-				
+				dispose();
 				
 			}
 		});

@@ -125,7 +125,7 @@ public class EliminarPersona extends JFrame {
 		contentPane.add(btnRegistrar);
 		btnRegistrar.setBackground(Color.decode("#FBCF4C"));
 
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("Volver");
 		btnSalir.addActionListener(new ActionListener() {
 			
 			 /**
@@ -137,6 +137,7 @@ public class EliminarPersona extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Menu frame = new Menu();
 				frame.setVisible(true);
+				dispose();
 				
 			}
 		});

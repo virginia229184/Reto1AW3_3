@@ -147,7 +147,7 @@ public class XMLForm extends JFrame {
 		contentPane.add(btnGenerarSesion);
 		btnGenerarSesion.setBackground(Color.decode("#FBCF4C"));
 
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("Volver");
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalir.addActionListener(new ActionListener() {
 			 /**
@@ -160,6 +160,7 @@ public class XMLForm extends JFrame {
 				
 				IniciarSesion frame =  new IniciarSesion();
 				frame.setVisible(true);
+				dispose();
 			}
 		});
 		btnSalir.setBounds(626, 469, 103, 21);

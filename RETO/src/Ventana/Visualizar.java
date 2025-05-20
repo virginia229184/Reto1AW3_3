@@ -110,7 +110,7 @@ public class Visualizar extends JFrame {
 		setIconImage(
 				new ImageIcon("D:/PROG/RETO/bin/Ventana/cineyelmo_logo.jpg").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 932, 599);
+		setBounds(100, 100, 932, 656);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -222,6 +222,19 @@ public class Visualizar extends JFrame {
 		txtVisualizar.setColumns(10);
 		txtVisualizar.setBackground(Color.decode("#002069"));
 		txtVisualizar.setEditable(false); // No permite editar el texto
+		
+		JButton btnNewButton = new JButton("Volver");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu frame = new Menu();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(667, 540, 185, 49);
+		contentPane.add(btnNewButton);
+		btnNewButton.setBackground(Color.decode("#FBCF4C"));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 	}
 }
