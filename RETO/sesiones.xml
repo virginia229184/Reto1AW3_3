@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sesiones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="sesiones.xsd">
+  <sesion>
+    <idSesion>1</idSesion>
+    <hora>18:00</hora>
+    <dia>2025-05-01</dia>
+    <aforo>120</aforo>
+    <cif>12345678A</cif>
+    <idPelicula>100</idPelicula>
+  </sesion>
+  <sesion>
+    <idSesion>2</idSesion>
+    <hora>20:00</hora>
+    <dia>2025-05-01</dia>
+    <aforo>80</aforo>
+    <cif>87654321B</cif>
+    <idPelicula>101</idPelicula>
+  </sesion>
+</sesiones>
