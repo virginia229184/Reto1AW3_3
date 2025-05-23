@@ -16,12 +16,12 @@ direccion TEXT
 );
 
 CREATE TABLE sesion(
-id_sesion INT PRIMARY KEY AUTO_INCREMENT,
+IdSesion INT PRIMARY KEY AUTO_INCREMENT,
 hora TIME,
 dia DATE,
 aforo INT UNSIGNED,
-CIF VARCHAR(9),
-id_pelicula INT,
+cif VARCHAR(9),
+IdPelicula INT,
 FOREIGN KEY (CIF) REFERENCES Cine(CIF),
 FOREIGN KEY (id_pelicula) REFERENCES pelicula(id)
 );
@@ -39,9 +39,7 @@ contrasena VARCHAR (10)
 CREATE TABLE sesion_reservada(
 id_reserva INT AUTO_INCREMENT PRIMARY KEY,
 id_sesion INT,
-DNI VARCHAR(9),
-FOREIGN KEY (DNI) REFERENCES persona(DNI),
-FOREIGN KEY (id_sesion) REFERENCES sesion(id_sesion)
+DNI VARCHAR(9)
 );
 
 CREATE TABLE sugerencia(
