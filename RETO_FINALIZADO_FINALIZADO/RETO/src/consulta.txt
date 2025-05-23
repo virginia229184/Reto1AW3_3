@@ -1,0 +1,1 @@
+INSERT INTO sesion_reservada (id_sesion, DNI) VALUES ('200', '12345218A');
